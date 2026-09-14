@@ -121,7 +121,6 @@ object RunTest1 {
       speed = 800000,
       dealResult = (l1, l2) => println(s"except7:$result7 autal7: ${BigDecimal(l1) / BigDecimal(l2)}")
     )
-
   }
 
 }
