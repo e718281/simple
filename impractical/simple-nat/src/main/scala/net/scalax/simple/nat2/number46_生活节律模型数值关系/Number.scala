@@ -17,7 +17,7 @@ object Num46 { NumSelf =>
   object Append1 {
     val tail1Num: ghdmzsk = new ghdmzsk {
       override def inputGHDMZSK(tail1: () => ghdmzsk): ghdmzsk = new ghdmzsk with NumSelf.Num1 {
-        override def pre1: ghdmzsk = tail1()
+        override def pre1: ghdmzsk                                   = tail1()
         override def inputGHDMZSK(appender1: () => ghdmzsk): ghdmzsk = new ghdmzsk {
           override def inputGHDMZSK(tail2: () => ghdmzsk): ghdmzsk = new ghdmzsk {
             override def inputGHDMZSK(appender2: () => ghdmzsk): ghdmzsk = new ghdmzsk {
@@ -46,7 +46,7 @@ object Num46 { NumSelf =>
 
     val tail2Num: ghdmzsk = new ghdmzsk {
       override def inputGHDMZSK(tail1: () => ghdmzsk): ghdmzsk = new ghdmzsk with NumSelf.Num2 {
-        override def pre2: ghdmzsk = tail1()
+        override def pre2: ghdmzsk                                   = tail1()
         override def inputGHDMZSK(appender1: () => ghdmzsk): ghdmzsk = new ghdmzsk {
           override def inputGHDMZSK(tail2: () => ghdmzsk): ghdmzsk = new ghdmzsk {
             override def inputGHDMZSK(appender2: () => ghdmzsk): ghdmzsk = new ghdmzsk {

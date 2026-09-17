@@ -1,9 +1,9 @@
 package net.scalax.simple
 package nat
-package number58
+package number59
 
 import scala.annotation.tailrec
-import number58.Num58._
+import number59.Num59._
 
 object RunTest1 {
   def build(current1: Long, current2: Long): Number = {
@@ -62,7 +62,7 @@ object RunTest1 {
       dealResult = dealResult
     )
 
-  def main(arr: Array[String]): Unit = {
+  def main1(arr: Array[String]): Unit = {
     val num1: Number        = build(current1 = 2, current2 = 56)
     val result1: BigDecimal = BigDecimal(2) / BigDecimal(56)
     count(
@@ -79,7 +79,7 @@ object RunTest1 {
       dealResult = (l1, l2) => println(s"except2:$result2 autal2: ${BigDecimal(l1) / BigDecimal(l2)}")
     )
 
-    val num3: Number        = num1.加(num2)
+    val num3: Number        = num1.plus(num2, Successor2, Successor3)
     val result3: BigDecimal = result1 + result2
     count(
       num3,
@@ -95,8 +95,8 @@ object RunTest1 {
       dealResult = (l1, l2) => println(s"except4:$result4 autal4: ${BigDecimal(l1) / BigDecimal(l2)}")
     )
 
-    val num5: Number        = num3.除以(num4)
-    val result5: BigDecimal = result3 / result4
+    val num5: Number        = num3.plus(num4, Successor2, Successor3)
+    val result5: BigDecimal = result3 + result4
     count(
       num5,
       printlnSum = 5,
@@ -104,8 +104,8 @@ object RunTest1 {
       dealResult = (l1, l2) => println(s"except5:$result5 autal5: ${BigDecimal(l1) / BigDecimal(l2)}")
     )
 
-    val num6: Number        = num4.乘以(num5)
-    val result6: BigDecimal = result4 * result5
+    val num6: Number        = num4.plus(num5, Successor2, Successor3)
+    val result6: BigDecimal = result4 + result5
     count(
       num6,
       printlnSum = 5,
@@ -113,14 +113,6 @@ object RunTest1 {
       dealResult = (l1, l2) => println(s"except6:$result6 autal6: ${BigDecimal(l1) / BigDecimal(l2)}")
     )
 
-    val num7: Number        = num2.除以(num4.乘以(num5).加(num3)).加(num2).乘以(num6)
-    val result7: BigDecimal = (result2 / (result4 * result5 + result3) + result2) * result6
-    count(
-      num7,
-      printlnSum = 5,
-      speed = 800000,
-      dealResult = (l1, l2) => println(s"except7:$result7 autal7: ${BigDecimal(l1) / BigDecimal(l2)}")
-    )
   }
 
 }
