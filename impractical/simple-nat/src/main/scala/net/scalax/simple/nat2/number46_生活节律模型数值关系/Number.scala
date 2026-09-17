@@ -6,6 +6,19 @@ import ghdmzsk._
 
 object Num46 { NumSelf =>
 
+  trait Number {
+    def other(
+      appender1: (() => Number) => Number,
+      tail2: Number,
+      appender2: (() => Number) => Number,
+      tail3: Number,
+      appender3: (() => Number) => Number,
+      tail4: Number,
+      appender4: (() => Number) => Number
+    ): Number
+    def unsafeRun: (() => Number, (() => Number) => Number)
+  }
+
   trait Num1 {
     def pre1: ghdmzsk
   }
@@ -14,62 +27,34 @@ object Num46 { NumSelf =>
     def pre2: ghdmzsk
   }
 
-  object Append1 {
-    val tail1Num: ghdmzsk = new ghdmzsk {
-      override def inputGHDMZSK(tail1: () => ghdmzsk): ghdmzsk = new ghdmzsk with NumSelf.Num1 {
-        override def pre1: ghdmzsk                                   = tail1()
-        override def inputGHDMZSK(appender1: () => ghdmzsk): ghdmzsk = new ghdmzsk {
-          override def inputGHDMZSK(tail2: () => ghdmzsk): ghdmzsk = new ghdmzsk {
-            override def inputGHDMZSK(appender2: () => ghdmzsk): ghdmzsk = new ghdmzsk {
-              override def inputGHDMZSK(tail3: () => ghdmzsk): ghdmzsk = new ghdmzsk {
-                override def inputGHDMZSK(appender3: () => ghdmzsk): ghdmzsk = new ghdmzsk {
-                  override def inputGHDMZSK(tail4: () => ghdmzsk): ghdmzsk = new ghdmzsk {
-                    override def inputGHDMZSK(appender4: () => ghdmzsk): ghdmzsk =
-                      appender1().inputGHDMZSK(() =>
-                        tail1()
-                          .inputGHDMZSK(appender1)
-                          .inputGHDMZSK(tail2)
-                          .inputGHDMZSK(appender2)
-                          .inputGHDMZSK(tail3)
-                          .inputGHDMZSK(appender3)
-                          .inputGHDMZSK(tail4)
-                          .inputGHDMZSK(appender4)
-                      )
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
+  val tail1Num: (() => Number) => Number = tail1 =>
+    new Number {
+      override def other(
+        appender1: (() => Number) => Number,
+        tail2: Number,
+        appender2: (() => Number) => Number,
+        tail3: Number,
+        appender3: (() => Number) => Number,
+        tail4: Number,
+        appender4: (() => Number) => Number
+      ): Number = appender1(() => tail1().other(appender1, tail2, appender2, tail3, appender3, tail4, appender4))
+      override def unsafeRun: (() => Number, (() => Number) => Number) = (tail1, tail1Num)
+
     }
 
-    val tail2Num: ghdmzsk = new ghdmzsk {
-      override def inputGHDMZSK(tail1: () => ghdmzsk): ghdmzsk = new ghdmzsk with NumSelf.Num2 {
-        override def pre2: ghdmzsk                                   = tail1()
-        override def inputGHDMZSK(appender1: () => ghdmzsk): ghdmzsk = new ghdmzsk {
-          override def inputGHDMZSK(tail2: () => ghdmzsk): ghdmzsk = new ghdmzsk {
-            override def inputGHDMZSK(appender2: () => ghdmzsk): ghdmzsk = new ghdmzsk {
-              override def inputGHDMZSK(tail3: () => ghdmzsk): ghdmzsk = new ghdmzsk {
-                override def inputGHDMZSK(appender3: () => ghdmzsk): ghdmzsk = new ghdmzsk {
-                  override def inputGHDMZSK(tail4: () => ghdmzsk): ghdmzsk = new ghdmzsk {
-                    override def inputGHDMZSK(appender4: () => ghdmzsk): ghdmzsk =
-                      tail2()
-                        .inputGHDMZSK(appender2)
-                        .inputGHDMZSK(tail3)
-                        .inputGHDMZSK(appender3)
-                        .inputGHDMZSK(tail4)
-                        .inputGHDMZSK(appender4)
-                        .inputGHDMZSK(tail1)
-                        .inputGHDMZSK(appender1)
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
+  val tail2Num: (() => Number) => Number = tail1 =>
+    new Number {
+      override def other(
+        appender1: (() => Number) => Number,
+        tail2: Number,
+        appender2: (() => Number) => Number,
+        tail3: Number,
+        appender3: (() => Number) => Number,
+        tail4: Number,
+        appender4: (() => Number) => Number
+      ): Number = tail2.other(appender2, tail3, appender3, tail4, appender4, tail1(), appender1)
+      override def unsafeRun: (() => Number, (() => Number) => Number) = (tail1, tail2Num)
+
     }
-  }
 
 }
