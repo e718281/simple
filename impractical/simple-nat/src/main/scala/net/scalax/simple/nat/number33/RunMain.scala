@@ -92,8 +92,8 @@ object RunTest1 {
       .inputGHDMZSK(() => 乘除1.n1)
       .inputGHDMZSK(() => num1.inputGHDMZSK(() => 乘除1.n2))*/
 
-    val num1: ghdmzsk     = build(分子 = 分子1, 分母 = 分母1)
-    val num1Impl: ghdmzsk = num1.inputGHDMZSK(() => 乘除1.n2)
+    val num1: ghdmzsk           = build(分子 = 分子1, 分母 = 分母1)
+    val num1Impl: ghdmzsk       = num1.inputGHDMZSK(() => 乘除1.n2)
     lazy val num1Count: ghdmzsk = new ghdmzsk {
       override def inputGHDMZSK(t: () => ghdmzsk): ghdmzsk = num1Impl.inputGHDMZSK(() => num1Count.inputGHDMZSK(t))
     }
