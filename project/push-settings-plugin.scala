@@ -23,7 +23,7 @@ object PushSettingsPlugin extends _root_.sbt.AutoPlugin {
     organization         := "net.scalax.simple",
     organizationName     := "Scala Workers",
     organizationHomepage := Some(uri("https://github.com/scala-workers")),
-    scmInfo := Some(
+    scmInfo              := Some(
       ScmInfo(
         uri("https://github.com/scalax/simple"),
         "scm:git@github.com:scalax/simple.git"
@@ -96,7 +96,7 @@ object SettingsGlobalPlugin extends _root_.sbt.AutoPlugin {
     testFrameworks ++= {
       if (enableZIOTest.value) Seq(new TestFramework("zio.test.sbt.ZTestFramework")) else Seq.empty
     },
-    baseCrossFile := (f => Seq(f / "src" / "codegen")),
+    baseCrossFile           := (f => Seq(f / "src" / "codegen")),
     Compile / baseCrossFile := {
       val t = baseCrossFile.value
       f => f / "src" / "main" +: t(f)
