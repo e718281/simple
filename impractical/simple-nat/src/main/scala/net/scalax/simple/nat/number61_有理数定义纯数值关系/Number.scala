@@ -25,6 +25,13 @@ object Num61 {
         分子1 = this.分子1 * other.分子1 + this.分子2 * other.分子2,
         分子2 = this.分子1 * other.分子2 + this.分子2 * other.分子1
       )
+    def 除以(other: 有理数): 有理数 =
+      有理数(
+        分母1 = this.分母1 * other.分子1 + this.分母2 * other.分子2,
+        分母2 = this.分母1 * other.分子2 + this.分母2 * other.分子1,
+        分子1 = this.分子1 * other.分母1 + this.分子2 * other.分母2,
+        分子2 = this.分子1 * other.分母2 + this.分子2 * other.分母1
+      )
   }
 
   case class 有理数2(分母: Long, 分子1: Long, 分子2: Long) {
