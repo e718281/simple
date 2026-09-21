@@ -4,7 +4,7 @@ package number57
 
 object Num57 { NumSelf =>
 
-  // 整数list
+  // 带符号有理数加法
   trait Number {
     def plus(other: Number, appender1: (() => Number) => Number, appender2: (() => Number) => Number): Number
     def unsafeRun: (() => Number, (() => Number) => Number)

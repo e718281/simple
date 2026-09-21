@@ -4,7 +4,7 @@ package number58
 
 object Num58 { NumSelf =>
 
-  // 整数list
+  // 无符号有理数加法乘法除法
   trait Number {
     def plus(other: Number, appender1: (() => Number) => Number, appender2: (() => Number) => Number): Number
     def divide(other: Number, appender1: (() => Number) => Number, appender2: (() => Number) => Number): Number
