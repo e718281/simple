@@ -66,33 +66,54 @@ object RunTest1 {
       dealResult = dealResult
     )
 
-  def main1(arr: Array[String]): Unit = {
-    val 日出: Days    = build(1, 1, TimeDong("richu"), TimeCount)
-    val 刷牙: Days    = build(1, 1, TimeDong("shuaya"), TimeCount)
-    val 吃饭: Days    = build(2, 1, TimeDong("chifan"), TimeCount)
-    val 更换漱口瓶: Days = build(1, 7, TimeDong("shukouping"), TimeCount)
-    val 剃胡子: Days   = build(2, 3, TimeDong("tihuzi"), TimeCount)
+  def main(arr: Array[String]): Unit = {
+    locally {
+      val 日出: Days    = build(1, 1, TimeDong("richu"), TimeCount)
+      val 刷牙: Days    = build(1, 1, TimeDong("shuaya"), TimeCount)
+      val 吃饭: Days    = build(2, 1, TimeDong("chifan"), TimeCount)
+      val 更换漱口瓶: Days = build(1, 7, TimeDong("shukouping"), TimeCount)
+      val 剃胡子: Days   = build(2, 3, TimeDong("tihuzi"), TimeCount)
 
-    count(
-      () => 日出.other(刷牙, 吃饭, 更换漱口瓶, 剃胡子),
-      printlnSum = 5,
-      speed = 100000000,
-      dealResult = map => {
-        println(map)
+      count(
+        () => 日出.other(刷牙, 吃饭, 更换漱口瓶, 剃胡子),
+        printlnSum = 5,
+        speed = 1000000,
+        dealResult = map => {
+          println(map)
 
-        println("richu vs shuaya except 1:1")
-        println(BigDecimal(map.getOrElse("shuaya", 1L)) / BigDecimal(map.getOrElse("richu", 1L)))
-        println("richu vs chifan except 2:1")
-        println(BigDecimal(map.getOrElse("chifan", 1L)) / BigDecimal(map.getOrElse("richu", 1L)))
-        println(s"richu vs shukouping except 1:7(${BigDecimal(1) / BigDecimal(7)})")
-        println(BigDecimal(map.getOrElse("shukouping", 1L)) / BigDecimal(map.getOrElse("richu", 1L)))
-        println(s"richu vs tihuzi except 2:3(${BigDecimal(2) / BigDecimal(3)})")
-        println(BigDecimal(map.getOrElse("tihuzi", 1L)) / BigDecimal(map.getOrElse("richu", 1L)))
+          println("richu vs shuaya except 1:1")
+          println(BigDecimal(map.getOrElse("shuaya", 1L)) / BigDecimal(map.getOrElse("richu", 1L)))
+          println("richu vs chifan except 2:1")
+          println(BigDecimal(map.getOrElse("chifan", 1L)) / BigDecimal(map.getOrElse("richu", 1L)))
+          println(s"richu vs shukouping except 1:7(${BigDecimal(1) / BigDecimal(7)})")
+          println(BigDecimal(map.getOrElse("shukouping", 1L)) / BigDecimal(map.getOrElse("richu", 1L)))
+          println(s"richu vs tihuzi except 2:3(${BigDecimal(2) / BigDecimal(3)})")
+          println(BigDecimal(map.getOrElse("tihuzi", 1L)) / BigDecimal(map.getOrElse("richu", 1L)))
 
-        println("=== finished 1 ===")
-      }
-    )
+          println("=== finished 1 ===")
+        }
+      )
+    }
 
+    locally {
+      val 技能1: Days   = build(10, 100, TimeDong("jineng1"), TimeCount)
+      val 技能2: Days   = build(20, 100, TimeDong("jineng2"), TimeCount)
+      val 技能3: Days   = build(25, 100, TimeDong("jineng3"), TimeCount)
+      val 技能4: Days   = build(25, 100, TimeDong("jineng4"), TimeCount)
+      val 不满100: Days = build(20, 100, TimeDong("kongbai1"), TimeCount)
+
+      count(
+        () => 技能1.other(技能2, 技能3, 技能4, 不满100),
+        printlnSum = 5,
+        speed = 10000000,
+        dealResult = map => {
+          println(map)
+          val valueSum = map.values.sum
+          println(for ((key, value) <- map) yield (key, BigDecimal(value) / BigDecimal(valueSum)))
+          println("=== finished 2 ===")
+        }
+      )
+    }
   }
 
 }
