@@ -9,12 +9,11 @@ import scala.util.Random
 object RunTest1 {
   def build: Number = {
     val gen: Long = Random.nextLong()
-    if (gen % 3 == 0 || gen % 3 == 1) One else Successor2(build, build)
+    if (gen % 3 == 0 || gen % 3 == 1) One else Successor(build, build)
   }
 
   def main(arr: Array[String]): Unit = {
-    val num1: Number =
-      Successor2(Successor2(Successor2(Successor2(Successor2(One, One), One), One), One), Successor2(One, Successor2(One, One)))
+    val num1: Number  = Successor(Successor(Successor(Successor(Successor(One, One), One), One), One), Successor(One, Successor(One, One)))
     val result1: Long = num1.unsafeRun
     println(s"result1: $result1")
 
