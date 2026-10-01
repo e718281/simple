@@ -1,20 +1,19 @@
 package net.scalax.simple
 package nat
-package number63
+package number64
 
-import number63.Num63._
+import number64.Num64._
 
 import scala.util.Random
 
 object RunTest1 {
-  def build: Number = {
+  /*def build: Number = {
     val gen: Long = Random.nextLong()
     if (gen % 3 == 0 || gen % 3 == 1) One else Successor(build, build)
   }
 
   def main(arr: Array[String]): Unit = {
-    val num1: Number =
-      Successor(Successor(Successor(Successor(Successor(One, One), One), One), One), Successor(One, Successor(One, One)))
+    val num1: Number  = Successor(Successor(Successor(Successor(Successor(One, One), One), One), One), Successor(One, Successor(One, One)))
     val result1: Long = num1.unsafeRun
     println(s"result1: $result1")
 
@@ -45,10 +44,6 @@ object RunTest1 {
     val num8: Number  = num4.multiply(num6)
     val result8: Long = result4 * result6
     println(s"result8: $result8, actual8: ${num8.unsafeRun}")
-
-    val num9: Number  = num4.minus(num6)
-    val result9: Long = result4 - result6
-    println(s"result8: $result9, actual8: ${num9.unsafeRun}")
-  }
+  }*/
 
 }
