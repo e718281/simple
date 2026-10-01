@@ -33,7 +33,13 @@ object RunTest1 {
         (trueFalse, nextNum(), newl1, newl2)
       }
     }
-    def decimal: BigDecimal = list.map(i => (i._1, BigDecimal(i._3) / BigDecimal(i._4))).map(i => if (i._1) i._2 else -i._2).sum
+    def decimal: BigDecimal = {
+      val listForSum = for ((i1, _, i3, i4) <- list) yield {
+        val num: BigDecimal = BigDecimal(i3) / BigDecimal(i4)
+        if (i1) num else -num
+      }
+      listForSum.sum
+    }
   }
   object CountContent {
     def apply(l: List[(Boolean, Leaf.Number)]): CountContent = new CountContent {
@@ -111,7 +117,7 @@ object RunTest1 {
     val result4: BigDecimal = result1 * result3
     count(
       CountContent(num4.unsafeRun),
-      speed = 40000,
+      speed = 20000,
       printlnSum = 5,
       exec = decimal => {
         println(s"result4: $result4, auctal: $decimal")
@@ -122,7 +128,7 @@ object RunTest1 {
     val result5: BigDecimal = result2 + result3
     count(
       CountContent(num5.unsafeRun),
-      speed = 200000,
+      speed = 20000,
       printlnSum = 5,
       exec = decimal => {
         println(s"result5: $result5, auctal: $decimal")
@@ -133,7 +139,7 @@ object RunTest1 {
     val result6: BigDecimal = result5 * result3 * (result1 - result2) + result1
     count(
       CountContent(num6.unsafeRun),
-      speed = 10000,
+      speed = 20000,
       printlnSum = 5,
       exec = decimal => {
         println(s"result6: $result6, auctal: $decimal")
@@ -144,7 +150,7 @@ object RunTest1 {
     val result7: BigDecimal = result3 / build(7, 22)._2
     count(
       CountContent(num7.unsafeRun),
-      speed = 200000,
+      speed = 20000,
       printlnSum = 5,
       exec = decimal => {
         println(s"result5: $result7, auctal: $decimal")
