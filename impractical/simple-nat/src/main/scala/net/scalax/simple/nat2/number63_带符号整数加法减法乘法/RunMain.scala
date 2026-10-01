@@ -12,7 +12,7 @@ object RunTest1 {
     if (gen % 3 == 0 || gen % 3 == 1) One else Successor(build, build)
   }
 
-  def main(arr: Array[String]): Unit = {
+  def main1(arr: Array[String]): Unit = {
     val num1: Number =
       Successor(Successor(Successor(Successor(Successor(One, One), One), One), One), Successor(One, Successor(One, One)))
     val result1: Long = num1.unsafeRun
