@@ -63,7 +63,7 @@ object ScalajsJsPlugin extends _root_.sbt.AutoPlugin {
 
   private var preSettings: Seq[Setting[?]] = Seq.empty
 
-  def addSetting(set: Setting[_]): Unit = preSettings = set +: preSettings
+  def addSetting(set: Setting[?]): Unit = preSettings = set +: preSettings
 
   /*addSetting {
     {
