@@ -56,22 +56,19 @@ object RunTest1 {
   }
 
   def main(arr: Array[String]): Unit = {
+    def NodeOne(value: (Leaf.Number, BigDecimal)): Node.Number = Node.One(value._1, value._2)
+
     val num1: Node.Number = Node.Successor(
       Node.Successor(
         Node.Successor(
-          Node.Successor(
-            Node.Successor(Node.One(build(23, 25)._1, build(23, 25)._2), Node.One(build(5, 72)._1, build(5, 72)._2)),
-            Node.One(build(3, 12)._1, build(3, 12)._2)
-          ),
-          Node.One(build(10, 12)._1, build(10, 12)._2)
+          Node.Successor(Node.Successor(NodeOne(build(23, 25)), NodeOne(build(5, 72))), NodeOne(build(3, 12))),
+          NodeOne(build(10, 12))
         ),
-        Node.One(build(23, 22)._1, build(23, 22)._2)
+        NodeOne(build(23, 22))
       ),
-      Node.Successor(
-        Node.One(build(23, 4)._1, build(23, 4)._2),
-        Node.Successor(Node.One(build(12, 50)._1, build(12, 50)._2), Node.One(build(2, 16)._1, build(2, 16)._2))
-      )
+      Node.Successor(NodeOne(build(23, 4)), Node.Successor(NodeOne(build(12, 50)), NodeOne(build(2, 16))))
     )
+
     val result1: BigDecimal = num1.except
     count(
       CountContent(num1.unsafeRun),
@@ -85,8 +82,8 @@ object RunTest1 {
     val num2: Node.Number = Node.Successor(
       Node.Zero,
       Node.Successor(
-        Node.Successor(Node.One(build(22, 33)._1, build(22, 33)._2), Node.One(build(12, 15)._1, build(12, 15)._2)),
-        Node.One(build(12, 2)._1, build(12, 2)._2)
+        Node.Successor(NodeOne(build(22, 33)._1, build(22, 33)._2), NodeOne(build(12, 15)._1, build(12, 15)._2)),
+        NodeOne(build(12, 2)._1, build(12, 2)._2)
       )
     )
     val result2: BigDecimal = num2.except
