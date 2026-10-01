@@ -9,7 +9,8 @@ object Num64 { NumSelf =>
       def minus(other: Node.Number): Node.Number
       def multiply(other: Node.Number): Node.Number
       def plus(other: Node.Number): Node.Number = this.minus(Zero.minus(other))
-      def inputLeaf(l1: Leaf.Number, inputDecimal: BigDecimal): Node.Number
+      def multiplyLeaf(l1: Leaf.Number, inputDecimal: BigDecimal): Node.Number
+      def divideLeaf(l1: Leaf.Number, inputDecimal: BigDecimal): Node.Number
 
       def unsafeRun: List[(Boolean, Leaf.Number)]
       def except: BigDecimal
@@ -19,8 +20,10 @@ object Num64 { NumSelf =>
       new Number {
         override def minus(other: Node.Number): Node.Number    = Successor(Successor(value1, value2), other)
         override def multiply(other: Node.Number): Node.Number = Successor(value1.multiply(other), value2.multiply(other))
-        override def inputLeaf(l1: Leaf.Number, inputDecimal: BigDecimal): Node.Number =
-          Successor(value1.inputLeaf(l1, inputDecimal), value2.inputLeaf(l1, inputDecimal))
+        override def multiplyLeaf(l1: Leaf.Number, inputDecimal: BigDecimal): Node.Number =
+          Successor(value1.multiplyLeaf(l1, inputDecimal), value2.multiplyLeaf(l1, inputDecimal))
+        override def divideLeaf(l1: Leaf.Number, inputDecimal: BigDecimal): Node.Number =
+          Successor(value1.divideLeaf(l1, inputDecimal), value2.divideLeaf(l1, inputDecimal))
 
         override def unsafeRun: List[(Boolean, Leaf.Number)] = value1.unsafeRun ::: (for (v2 <- value2.unsafeRun) yield (!v2._1, v2._2))
         override def except: BigDecimal                      = value1.except - value2.except
@@ -28,9 +31,10 @@ object Num64 { NumSelf =>
 
     val One: (Leaf.Number, BigDecimal) => Node.Number = (leaf, bigDecimal) =>
       new Node.Number {
-        override def minus(other: Node.Number): Node.Number                            = Successor(One(leaf, bigDecimal), other)
-        override def multiply(other: Node.Number): Node.Number                         = other.inputLeaf(leaf, bigDecimal)
-        override def inputLeaf(l1: Leaf.Number, inputDecimal: BigDecimal): Node.Number = One(leaf.乘以(l1), bigDecimal * inputDecimal)
+        override def minus(other: Node.Number): Node.Number                               = Successor(One(leaf, bigDecimal), other)
+        override def multiply(other: Node.Number): Node.Number                            = other.multiplyLeaf(leaf, bigDecimal)
+        override def multiplyLeaf(l1: Leaf.Number, inputDecimal: BigDecimal): Node.Number = One(leaf.乘以(l1), bigDecimal * inputDecimal)
+        override def divideLeaf(l1: Leaf.Number, inputDecimal: BigDecimal): Node.Number   = One(leaf.除以(l1), bigDecimal / inputDecimal)
 
         override def unsafeRun: List[(Boolean, Leaf.Number)] = List((true, leaf))
         override def except: BigDecimal                      = bigDecimal

@@ -133,10 +133,21 @@ object RunTest1 {
     val result6: BigDecimal = result5 * result3 * (result1 - result2) + result1
     count(
       CountContent(num6.unsafeRun),
-      speed = 20000,
+      speed = 10000,
       printlnSum = 5,
       exec = decimal => {
         println(s"result6: $result6, auctal: $decimal")
+      }
+    )
+
+    val num7: Node.Number   = num3.divideLeaf(build(7, 22)._1, build(7, 22)._2)
+    val result7: BigDecimal = result3 / build(7, 22)._2
+    count(
+      CountContent(num7.unsafeRun),
+      speed = 200000,
+      printlnSum = 5,
+      exec = decimal => {
+        println(s"result5: $result7, auctal: $decimal")
       }
     )
 
