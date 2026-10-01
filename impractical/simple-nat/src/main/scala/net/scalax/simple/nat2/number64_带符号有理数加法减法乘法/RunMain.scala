@@ -146,8 +146,9 @@ object RunTest1 {
       }
     )
 
-    val num7: Node.Number   = num3.divideLeaf(build(7, 22)._1, build(7, 22)._2)
-    val result7: BigDecimal = result3 / build(7, 22)._2
+    val num7_1              = build(7, 22)
+    val num7: Node.Number   = num3.divideLeaf(num7_1._1, num7_1._2)
+    val result7: BigDecimal = result3 / num7_1._2
     count(
       CountContent(num7.unsafeRun),
       speed = 20000,
