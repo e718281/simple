@@ -61,7 +61,7 @@ object RunTest1 {
     }
   }
 
-  def main(arr: Array[String]): Unit = {
+  def main1(arr: Array[String]): Unit = {
     def NodeOne(value: (Leaf.Number, BigDecimal)): Node.Number = Node.One(value._1, value._2)
 
     val num1: Node.Number = Node.Successor(
