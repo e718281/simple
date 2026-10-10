@@ -32,18 +32,22 @@ object RunTest1 {
     current2: Long,
     current3: Long,
     current4: Long,
-    printlnSum: Int,
-    speed: Long,
-    dealResult: BigDecimal => Unit
-  ): Unit = {
-    val needPrintln: Boolean = (current1 + current2 + current3 + current4) % speed == 0
-    val printSum: Int        =
-      if (needPrintln) {
-        dealResult(BigDecimal(current1) / BigDecimal(current2) - BigDecimal(current3) / BigDecimal(current4)): Unit
-        printlnSum - 1
-      } else printlnSum
+    except: BigDecimal,
+    wucha: BigDecimal,
+    speed: Long
+  ): Boolean = {
+    val needPrintln: Boolean    = (current1 + current2 + current3 + current4) % speed == 0
+    def currentNum: BigDecimal  = BigDecimal(current1) / BigDecimal(current2) - BigDecimal(current3) / BigDecimal(current4)
+    val actualWucha: BigDecimal = (currentNum - except).abs
+    val finished: Boolean       = actualWucha <= wucha
 
-    if (printlnSum > 0) {
+    if (needPrintln || finished) {
+      println(s"current: $currentNum, except: $except, finished: $finished")
+    }
+
+    if (finished) {
+      finished
+    } else {
       val (nextCount1, numType1) = num1.unsafeRun
       val (nextCount2, numType2) = num2.unsafeRun
       countImpl(
@@ -53,19 +57,14 @@ object RunTest1 {
         current2 = if (numType1 == Successor1) current2 else current2 + 1,
         current3 = if (numType2 == Successor1) current3 + 1 else current3,
         current4 = if (numType2 == Successor1) current4 else current4 + 1,
-        printlnSum = printSum,
-        speed = speed,
-        dealResult = dealResult
+        except = except,
+        wucha = wucha,
+        speed = speed
       )
     }
   }
 
-  def count(
-    num: AddNumber,
-    printlnSum: Int,
-    speed: Long = 80000,
-    dealResult: BigDecimal => Unit
-  ): Unit =
+  def count(num: AddNumber, except: BigDecimal, wucha: BigDecimal, speed: Long = 80000): Boolean =
     countImpl(
       num1 = num.left,
       num2 = num.right,
@@ -73,76 +72,84 @@ object RunTest1 {
       current2 = 1,
       current3 = 1,
       current4 = 1,
-      printlnSum = printlnSum,
-      speed = speed,
-      dealResult = dealResult
+      except = except,
+      wucha = wucha.abs,
+      speed = speed
     )
 
   def main(arr: Array[String]): Unit = {
+    println("=== start num1 ===")
     val num1: AddNumber     = AddNumber(build(current1 = 2, current2 = 56), build(current1 = 78, current2 = 9))
     val result1: BigDecimal = BigDecimal(2) / BigDecimal(56) - BigDecimal(78) / BigDecimal(9)
     count(
       num1,
-      printlnSum = 5,
-      dealResult = bigDecimal => println(s"result1 except:$result1 actual: $bigDecimal")
+      except = result1,
+      wucha = BigDecimal(1) / BigDecimal(10000)
     )
 
+    println("=== start num2 ===")
     val num2: AddNumber     = AddNumber(build(current1 = 56, current2 = 2), build(current1 = 32, current2 = 7))
     val result2: BigDecimal = BigDecimal(56) / BigDecimal(2) - BigDecimal(32) / BigDecimal(7)
     count(
       num2,
-      printlnSum = 5,
-      dealResult = bigDecimal => println(s"result2 except:$result2 actual: $bigDecimal")
+      except = result2,
+      wucha = BigDecimal(1) / BigDecimal(10000)
     )
 
+    println("=== start num3 ===")
     val num3: AddNumber     = num1.加(num2)
     val result3: BigDecimal = result1 + result2
     count(
       num3,
-      printlnSum = 5,
-      dealResult = bigDecimal => println(s"result3 except:$result3 actual: $bigDecimal")
+      except = result3,
+      wucha = BigDecimal(1) / BigDecimal(10000)
     )
 
+    println("=== start num4 ===")
     val num4: AddNumber     = num1.乘以(num3)
     val result4: BigDecimal = result1 * result3
     count(
       num4,
       speed = 1000000,
-      printlnSum = 5,
-      dealResult = bigDecimal => println(s"result4 except:$result4 actual: $bigDecimal")
+      except = result4,
+      wucha = BigDecimal(1) / BigDecimal(100)
     )
 
+    println("=== start num5 ===")
     val num5: AddNumber     = num1.乘以(num4)
     val result5: BigDecimal = result1 * result4
     count(
       num5,
-      printlnSum = 5,
-      dealResult = bigDecimal => println(s"result5 except:$result5 actual: $bigDecimal")
+      speed = 10000000,
+      except = result5,
+      wucha = BigDecimal(1) / BigDecimal(10)
     )
 
+    println("=== start num6 ===")
     val num6: AddNumber     = num2.减(num1)
     val result6: BigDecimal = result2 - result1
     count(
       num6,
-      printlnSum = 5,
-      dealResult = bigDecimal => println(s"result6 except:$result6 actual: $bigDecimal")
+      except = result6,
+      wucha = BigDecimal(1) / BigDecimal(10000)
     )
 
+    println("=== start num7 ===")
     val num7: AddNumber     = num2.乘以(num3.减(num1)).加(num2).乘以(num6)
     val result7: BigDecimal = (result2 * (result3 - result1) + result2) * result6
     count(
       num7,
-      speed = 8000000,
-      printlnSum = 5,
-      dealResult = bigDecimal => println(s"result7 except:$result7 actual: $bigDecimal")
+      except = result7,
+      wucha = BigDecimal(1) / BigDecimal(10000)
     )
 
+    println("=== start num8 ===")
     val num8: AddNumber     = num2.除以(build(25, 11))
     val result8: BigDecimal = result2 / (BigDecimal(25) / BigDecimal(11))
     count(
       num8,
-      printlnSum = 5,
-      dealResult = bigDecimal => println(s"result8 except:$result8 actual: $bigDecimal")
+      except = result8,
+      wucha = BigDecimal(1) / BigDecimal(10000)
     )
   }
 
