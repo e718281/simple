@@ -77,7 +77,7 @@ object RunTest1 {
       speed = speed
     )
 
-  def main(arr: Array[String]): Unit = {
+  def main1(arr: Array[String]): Unit = {
     println("=== start num1 ===")
     val num1: AddNumber     = AddNumber(build(current1 = 2, current2 = 56), build(current1 = 78, current2 = 9))
     val result1: BigDecimal = BigDecimal(2) / BigDecimal(56) - BigDecimal(78) / BigDecimal(9)
@@ -97,7 +97,7 @@ object RunTest1 {
     )
 
     println("=== start num3 ===")
-    val num3: AddNumber     = num1.加(num2)
+    val num3: AddNumber     = AddNumber.加(num1, num2)
     val result3: BigDecimal = result1 + result2
     count(
       num3,
@@ -106,7 +106,7 @@ object RunTest1 {
     )
 
     println("=== start num4 ===")
-    val num4: AddNumber     = num1.乘以(num3)
+    val num4: AddNumber     = AddNumber.乘以(num1, num3)
     val result4: BigDecimal = result1 * result3
     count(
       num4,
@@ -116,7 +116,7 @@ object RunTest1 {
     )
 
     println("=== start num5 ===")
-    val num5: AddNumber     = num1.乘以(num4)
+    val num5: AddNumber     = AddNumber.乘以(num1, num4)
     val result5: BigDecimal = result1 * result4
     count(
       num5,
@@ -126,7 +126,7 @@ object RunTest1 {
     )
 
     println("=== start num6 ===")
-    val num6: AddNumber     = num2.减(num1)
+    val num6: AddNumber     = AddNumber.减(num2, num1)
     val result6: BigDecimal = result2 - result1
     count(
       num6,
@@ -135,7 +135,7 @@ object RunTest1 {
     )
 
     println("=== start num7 ===")
-    val num7: AddNumber     = num2.乘以(num3.减(num1)).加(num2).乘以(num6)
+    val num7: AddNumber     = AddNumber.乘以(AddNumber.加(AddNumber.乘以(num2, AddNumber.减(num3, num1)), num2), num6)
     val result7: BigDecimal = (result2 * (result3 - result1) + result2) * result6
     count(
       num7,
@@ -144,7 +144,7 @@ object RunTest1 {
     )
 
     println("=== start num8 ===")
-    val num8: AddNumber     = num2.除以(build(25, 11))
+    val num8: AddNumber     = AddNumber.除以(num2, build(25, 11))
     val result8: BigDecimal = result2 / (BigDecimal(25) / BigDecimal(11))
     count(
       num8,

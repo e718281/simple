@@ -4,12 +4,16 @@ package number65
 
 object Num65 { NumSelf =>
 
-  case class AddNumber(left: Number, right: Number) {
-    def 加(other: AddNumber): AddNumber  = AddNumber(this.left.加(other.left), this.right.加(other.right))
-    def 减(other: AddNumber): AddNumber  = AddNumber(this.left.加(other.right), this.right.加(other.left))
-    def 乘以(other: AddNumber): AddNumber =
-      AddNumber(this.left.乘以(other.left).加(this.right.乘以(other.right)), this.left.乘以(other.right).加(this.right.乘以(other.left)))
-    def 除以(other: Number): AddNumber = AddNumber(this.left.除以(other), this.right.除以(other))
+  case class AddNumber(left: Number, right: Number)
+
+  object AddNumber {
+    def 加(t: AddNumber, other: AddNumber): AddNumber  = AddNumber(Number.加(t.left, other.left), Number.加(t.right, other.right))
+    def 减(t: AddNumber, other: AddNumber): AddNumber  = AddNumber(Number.加(t.left, other.right), Number.加(t.right, other.left))
+    def 乘以(t: AddNumber, other: AddNumber): AddNumber = AddNumber(
+      Number.加(Number.乘以(t.left, other.left), Number.乘以(t.right, other.right)),
+      Number.加(Number.乘以(t.left, other.right), Number.乘以(t.right, other.left))
+    )
+    def 除以(t: AddNumber, other: Number): AddNumber = AddNumber(Number.除以(t.left, other), Number.除以(t.right, other))
   }
 
   // 无符号有理数加法乘法除法
@@ -17,10 +21,13 @@ object Num65 { NumSelf =>
     def plus(other: Number, appender1: (() => Number) => Number, appender2: (() => Number) => Number): Number
     def divide(other: Number, appender1: (() => Number) => Number, appender2: (() => Number) => Number): Number
 
-    def 加(other: Number): Number  = plus(other, Successor2, Successor3)
-    def 除以(other: Number): Number = divide(other, Successor2, Successor1)
-    def 乘以(other: Number): Number = 除以(One.除以(other))
     def unsafeRun: (() => Number, (() => Number) => Number)
+  }
+
+  object Number {
+    def 加(t: Number, other: Number): Number  = t.plus(other, Successor2, Successor3)
+    def 除以(t: Number, other: Number): Number = t.divide(other, Successor2, Successor1)
+    def 乘以(t: Number, other: Number): Number = 除以(t, 除以(One, other))
   }
 
   val Successor1: (() => Number) => Number = tail =>
