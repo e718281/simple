@@ -11,7 +11,8 @@ object RunTest1 {
   val C: List[String] = List("爱新不爱旧还是爱")
   val D: List[String] = List("鸳鸯似永远不死", "哪管哪段年代", "红男绿女都相信相爱", "可化蝶远飞", "旧戏新做化作传奇", "最易惹乐与悲", "最难判是与非", "又甜又苦全是戏")
 
-  val Sum: List[String] = A ::: B ::: A ::: C ::: A ::: B ::: A ::: C ::: D ::: A ::: B ::: A ::: C ::: A ::: B ::: A ::: C ::: D
+  val Sum: List[String]    = A ::: B ::: A ::: C ::: A ::: B ::: A ::: C ::: D ::: A ::: B ::: A ::: C ::: A ::: B ::: A ::: C ::: D
+  val SubSum: List[String] = A ::: B ::: A ::: C ::: A ::: B ::: A ::: C
 
   def count(num1: TimeResult, size: Long): List[String] =
     if (size > 0) num1.key :: count(num1.tail(), size - 1)
@@ -33,10 +34,9 @@ object RunTest1 {
     )
 
     val result: TimeResult       = roundA.other(roundB, roundC, roundD)
-    val resultList: List[String] = count(result, 24)
-    val takeNum: Int             = 24
-    println(resultList.take(takeNum) == Sum.take(takeNum))
-    println(resultList.take(takeNum).mkString("\n"))
+    val resultList: List[String] = count(result, 12)
+    assert(resultList == SubSum)
+    println(resultList == SubSum)
   }
 
 }
