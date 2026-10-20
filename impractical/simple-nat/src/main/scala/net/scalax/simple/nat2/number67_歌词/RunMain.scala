@@ -11,8 +11,7 @@ object RunTest1 {
   val C: List[String] = List("爱新不爱旧还是爱")
   val D: List[String] = List("鸳鸯似永远不死", "哪管哪段年代", "红男绿女都相信相爱", "可化蝶远飞", "旧戏新做化作传奇", "最易惹乐与悲", "最难判是与非", "又甜又苦全是戏")
 
-  val Sum: List[String]    = A ::: B ::: A ::: C ::: A ::: B ::: A ::: C ::: D ::: A ::: B ::: A ::: C ::: A ::: B ::: A ::: C ::: D
-  val SubSum: List[String] = A ::: B ::: A ::: C ::: A ::: B ::: A ::: C
+  val Sum: List[String] = A ::: B ::: A ::: C ::: A ::: B ::: A ::: C ::: D ::: A ::: B ::: A ::: C ::: A ::: B ::: A ::: C ::: D
 
   def count(num1: TimeResult, size: Long): List[String] =
     if (size > 0) num1.key :: count(num1.tail(), size - 1)
@@ -24,19 +23,28 @@ object RunTest1 {
     val List(c1)                             = C
     val List(d1, d2, d3, d4, d5, d6, d7, d8) = D
 
-    lazy val roundA: Time = TimeTop(a1)(() => TimeTop(a2)(() => TimeCount(() => roundA)))
+    lazy val roundA: Time = TimeDong(() => TimeTop(a1)(() => TimeTop(a2)(() => TimeCount(() => roundA))))
     lazy val roundB: Time = TimeTop(b1)(() => TimeDong(() => TimeCount(() => TimeDong(() => roundB))))
     lazy val roundC: Time = TimeTop(c1)(() => TimeDong(() => roundC))
-    lazy val roundD: Time = TimeTop(d1)(() =>
-      TimeTop(d2)(() =>
-        TimeTop(d3)(() => TimeTop(d4)(() => TimeTop(d5)(() => TimeTop(d6)(() => TimeTop(d7)(() => TimeTop(d8)(() => roundD))))))
+    lazy val roundD: Time = TimeCount(() =>
+      TimeCount(() =>
+        TimeCount(() =>
+          TimeCount(() =>
+            TimeTop(d1)(() =>
+              TimeTop(d2)(() =>
+                TimeTop(d3)(() => TimeTop(d4)(() => TimeTop(d5)(() => TimeTop(d6)(() => TimeTop(d7)(() => TimeTop(d8)(() => roundD))))))
+              )
+            )
+          )
+        )
       )
     )
 
     val result: TimeResult       = roundA.other(roundB, roundC, roundD)
-    val resultList: List[String] = count(result, 12)
-    assert(resultList == SubSum)
-    println(resultList == SubSum)
+    val resultList: List[String] = count(result, 40)
+    println(resultList.mkString("\n"))
+    println(resultList == Sum)
+    assert(resultList == Sum)
   }
 
 }
