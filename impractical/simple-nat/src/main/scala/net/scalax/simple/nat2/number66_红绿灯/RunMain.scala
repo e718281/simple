@@ -56,7 +56,7 @@ object RunTest1 {
     }
   }
 
-  def main(arr: Array[String]): Unit = {
+  def main1(arr: Array[String]): Unit = {
     lazy val 路灯1_1: Number = build(17, "路灯1", Green, zero = () => 路灯1_2)
     lazy val 路灯1_2: Number = build(3, "路灯1", Yellow, zero = () => 路灯1_3)
     lazy val 路灯1_3: Number = build(40, "路灯1", Red, zero = () => 路灯1_1)
