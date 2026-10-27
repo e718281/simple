@@ -144,7 +144,7 @@ object RunTest1 {
     )
 
     println("=== start num8 ===")
-    val num8: AddNumber     = AddNumber.除以(num2, build(25, 11))
+    val num8: AddNumber     = AddNumber.除以Impl(num2, build(25, 11))
     val result8: BigDecimal = result2 / (BigDecimal(25) / BigDecimal(11))
     count(
       num8,
