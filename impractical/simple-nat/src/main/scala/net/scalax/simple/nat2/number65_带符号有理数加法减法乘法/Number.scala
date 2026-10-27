@@ -15,7 +15,7 @@ object Num65 { NumSelf =>
     )
     def 除以Impl(t: AddNumber, other: Number): AddNumber = AddNumber(Number.除以(t.left, other), Number.除以(t.right, other))
     def 平方(t: AddNumber): Number                       = ???
-    def 除以(t: AddNumber, other: AddNumber): AddNumber  = AddNumber.除以Impl(t, AddNumber.平方(other))
+    def 除以(t: AddNumber, other: AddNumber): AddNumber  = AddNumber.除以Impl(AddNumber.乘以(t, other), AddNumber.平方(other))
   }
 
   // 无符号有理数加法乘法除法
