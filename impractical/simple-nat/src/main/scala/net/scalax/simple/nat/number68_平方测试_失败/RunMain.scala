@@ -6,7 +6,7 @@ import number68.Num68._
 
 object RunTest1 {
 
-  def main(arr: Array[String]): Unit = {
+  def main1(arr: Array[String]): Unit = {
 
     val listInput: Seq[(Int, Int, Int, Int, Int)] = for {
       s1 <- 1 to 5
