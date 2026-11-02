@@ -5,35 +5,15 @@ package number60
 object Num60 {
 
   trait ThreeOut {
-    val _1: Three
-    val _2: Three
+    lazy val _1: Three = new Three {}
+    lazy val _2: Three = new Three {}
   }
 
   trait Three {
-    val value: Any
-    val _0: Three
-    val _1: Three
-    val _2: Three
+    var value: Any     = null
+    lazy val _0: Three = new Three {}
+    lazy val _1: Three = new Three {}
+    lazy val _2: Three = new Three {}
   }
-
-  def three: ThreeOut = ???
-  three._1.value
-  three._2.value
-  three._1._0.value
-  three._1._1.value
-  three._1._2.value
-  three._2._0.value
-  three._2._1.value
-  three._2._2.value
-  three._1._0._0.value
-  three._1._0._1.value
-  three._1._0._2.value
-  three._1._1._0.value
-  three._1._1._1.value
-  three._1._1._2.value
-  three._1._2._0.value
-  three._1._2._1.value
-  three._1._2._2.value
-  three._2._0._0.value
 
 }
