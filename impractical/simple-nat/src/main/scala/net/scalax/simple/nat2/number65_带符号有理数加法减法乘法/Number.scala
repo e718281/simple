@@ -13,7 +13,8 @@ object Num65 { NumSelf =>
       Number.加(Number.乘以(t.left, other.left), Number.乘以(t.right, other.right)),
       Number.加(Number.乘以(t.left, other.right), Number.乘以(t.right, other.left))
     )
-    def 除以(t: AddNumber, other: Number): AddNumber = AddNumber(Number.除以(t.left, other), Number.除以(t.right, other))
+    def 除以正数(t: AddNumber, other: Number): AddNumber = AddNumber(Number.除以(t.left, other), Number.除以(t.right, other))
+    def 除以负数(t: AddNumber, other: Number): AddNumber = AddNumber(Number.除以(t.right, other), Number.除以(t.left, other))
   }
 
   // 无符号有理数加法乘法除法

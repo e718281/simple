@@ -6,7 +6,7 @@ import Num60._
 
 object RunTest1 {
 
-  def main(arr: Array[String]): Unit = {
+  def main1(arr: Array[String]): Unit = {
     val three: ThreeOut = new ThreeOut {}
     three._1.value = "1"
     three._2.value = "2"
