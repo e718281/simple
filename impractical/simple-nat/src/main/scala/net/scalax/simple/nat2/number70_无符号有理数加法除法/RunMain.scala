@@ -33,7 +33,7 @@ object RunTest1 {
     wucha: BigDecimal,
     speed: Long
   ): Boolean = {
-    val needPrintln: Boolean    = (current1 + current2) % speed == 0
+    val needPrintln: Boolean    = (current1 + current2) % speed == 0 && (current1 + current2) > 1000000
     def currentNum: BigDecimal  = BigDecimal(current1) / BigDecimal(current2)
     val actualWucha: BigDecimal = (currentNum - except).abs
     val finished: Boolean       = actualWucha <= wucha
@@ -69,33 +69,33 @@ object RunTest1 {
     }
   }
 
-  def count(num: Number, except: BigDecimal, wucha: BigDecimal, speed: Long = 80000): Boolean =
+  def count(num: Number, except: BigDecimal, wucha: BigDecimal, speed: Long = 1000000): Boolean =
     countImpl(
       num1 = num,
-      current1 = 1,
+      current1 = 20,
       current2 = 1,
       except = except,
       wucha = wucha.abs,
       speed = speed
     )
 
-  def main1(arr: Array[String]): Unit = {
+  def main(arr: Array[String]): Unit = {
     println("=== start num1 ===")
     val num1: Number        = build(current1 = 22, current2 = 7)
     val result1: BigDecimal = BigDecimal(22) / BigDecimal(7)
     count(
       num1,
       except = result1,
-      wucha = BigDecimal(1) / BigDecimal(1000000)
+      wucha = result1 / BigDecimal(100000)
     )
 
     println("=== start num2 ===")
-    val num2: Number        = build(current1 = 15, current2 = 4)
-    val result2: BigDecimal = BigDecimal(15) / BigDecimal(4)
+    val num2: Number        = build(current1 = 13, current2 = 4)
+    val result2: BigDecimal = BigDecimal(13) / BigDecimal(4)
     count(
       num2,
       except = result2,
-      wucha = BigDecimal(1) / BigDecimal(1000000)
+      wucha = result2 / BigDecimal(100000)
     )
 
     println("=== start num3 ===")
@@ -104,7 +104,7 @@ object RunTest1 {
     count(
       num3,
       except = result3,
-      wucha = BigDecimal(1) / BigDecimal(1000000)
+      wucha = result3 / BigDecimal(100000)
     )
 
     println("=== start num4 ===")
@@ -112,9 +112,8 @@ object RunTest1 {
     val result4: BigDecimal = result1 / result3
     count(
       num4,
-      speed = 1000000,
       except = result4,
-      wucha = BigDecimal(1) / BigDecimal(100000000)
+      wucha = result4 / BigDecimal(100000)
     )
 
     println("=== start num5 ===")
@@ -122,10 +121,141 @@ object RunTest1 {
     val result5: BigDecimal = result4 / (result1 + result2)
     count(
       num5,
-      speed = 10000000,
       except = result5,
-      wucha = BigDecimal(1) / BigDecimal(100000000000L)
+      wucha = result5 / BigDecimal(100000)
     )
+
+    locally {
+      println("=== start num6 ===")
+      val num6: Number        = Number.运算1_1(num1, num2)
+      val result6: BigDecimal = 1
+      count(
+        num6,
+        except = result6,
+        wucha = result6 / BigDecimal(100000)
+      )
+    }
+
+    locally {
+      println("=== start num7 ===")
+      val num7: Number        = Number.运算1_2(num1, num2)
+      val result7: BigDecimal = 1
+      count(
+        num7,
+        except = result7,
+        wucha = result7 / BigDecimal(100000)
+      )
+    }
+
+    locally {
+      println("=== start num8 ===")
+      val num8: Number        = Number.运算1_3(num1, num2)
+      val result8: BigDecimal = 1
+      count(
+        num8,
+        except = result8,
+        wucha = result8 / BigDecimal(100000)
+      )
+    }
+
+    locally {
+      println("=== start num9 ===")
+      val num9: Number        = Number.运算1_4(num1, num2)
+      val result9: BigDecimal = result1 + result2
+      count(
+        num9,
+        except = result9,
+        wucha = result9 / BigDecimal(100000)
+      )
+    }
+
+    locally {
+      println("=== start num10 ===")
+      val num10: Number        = Number.运算1_5(num1, num2)
+      val result10: BigDecimal = 1 / (result1 + result2)
+      count(
+        num10,
+        except = result10,
+        wucha = result10 / BigDecimal(100000)
+      )
+    }
+
+    locally {
+      println("=== start num11 ===")
+      val num11: Number        = Number.运算1_6(num1, num2)
+      val result11: BigDecimal = result1 + result2
+      count(
+        num11,
+        except = result11,
+        wucha = result11 / BigDecimal(100000)
+      )
+    }
+
+    locally {
+      println("=== start num12 ===")
+      val num12: Number        = Number.运算2_1(num1, num2)
+      val result12: BigDecimal = result1 / result2
+      count(
+        num12,
+        except = result12,
+        wucha = result12 / BigDecimal(100000)
+      )
+    }
+
+    locally {
+      println("=== start num13 ===")
+      val num13: Number        = Number.运算2_2(num1, num2)
+      val result13: BigDecimal = result1 / 2
+      count(
+        num13,
+        except = result13,
+        wucha = result13 / BigDecimal(100000)
+      )
+    }
+
+    locally {
+      println("=== start num14 ===")
+      val num14: Number        = Number.运算2_3(num1, num2)
+      val result14: BigDecimal = result2 / result1
+      count(
+        num14,
+        except = result14,
+        wucha = result14 / BigDecimal(100000)
+      )
+    }
+
+    locally {
+      println("=== start num15 ===")
+      val num15: Number        = Number.运算2_4(num1, num2)
+      val result15: BigDecimal = 2 / result1
+      count(
+        num15,
+        except = result15,
+        wucha = result15 / BigDecimal(100000)
+      )
+    }
+
+    locally {
+      println("=== start num16 ===")
+      val num16: Number        = Number.运算2_5(num1, num2)
+      val result16: BigDecimal = result2 / 2
+      count(
+        num16,
+        except = result16,
+        wucha = result16 / BigDecimal(100000)
+      )
+    }
+
+    locally {
+      println("=== start num16 ===")
+      val num17: Number        = Number.运算2_6(num1, num2)
+      val result17: BigDecimal = 2 / result2
+      count(
+        num17,
+        except = result17,
+        wucha = result17 / BigDecimal(100000)
+      )
+    }
   }
 
 }

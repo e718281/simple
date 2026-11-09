@@ -67,6 +67,20 @@ object Num70 { NumSelf =>
   object Number {
     def 加(t: Number, other: Number): Number  = t.plus(other, Successor2, Successor3, Successor1)
     def 除以(t: Number, other: Number): Number = t.divide(other, Successor1, Successor2, Successor3)
+
+    def 运算1_1(t: Number, other: Number): Number = t.plus(other, Successor1, Successor2, Successor3)
+    def 运算1_2(t: Number, other: Number): Number = t.plus(other, Successor1, Successor3, Successor2)
+    def 运算1_3(t: Number, other: Number): Number = t.plus(other, Successor2, Successor1, Successor3)
+    def 运算1_4(t: Number, other: Number): Number = t.plus(other, Successor2, Successor3, Successor1)
+    def 运算1_5(t: Number, other: Number): Number = t.plus(other, Successor3, Successor1, Successor2)
+    def 运算1_6(t: Number, other: Number): Number = t.plus(other, Successor3, Successor2, Successor1)
+
+    def 运算2_1(t: Number, other: Number): Number = t.divide(other, Successor1, Successor2, Successor3)
+    def 运算2_2(t: Number, other: Number): Number = t.divide(other, Successor1, Successor3, Successor2)
+    def 运算2_3(t: Number, other: Number): Number = t.divide(other, Successor2, Successor1, Successor3)
+    def 运算2_4(t: Number, other: Number): Number = t.divide(other, Successor2, Successor3, Successor1)
+    def 运算2_5(t: Number, other: Number): Number = t.divide(other, Successor3, Successor1, Successor2)
+    def 运算2_6(t: Number, other: Number): Number = t.divide(other, Successor3, Successor2, Successor1)
   }
 
 }
