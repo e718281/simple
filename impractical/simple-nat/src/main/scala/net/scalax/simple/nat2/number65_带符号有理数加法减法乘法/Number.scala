@@ -36,9 +36,10 @@ object Num65 { NumSelf =>
   }
 
   object Number {
-    def 加(t: Number, other: Number): Number  = t.plus(other, Successor2, Successor3, Successor1)
-    def 除以(t: Number, other: Number): Number = t.divide(other, Successor1, Successor2, Successor3)
-    def 乘以(t: Number, other: Number): Number = 除以(t, 除以(One, other))
+    def 加(t: Number, other: Number): Number    = t.plus(other, Successor2, Successor3, Successor1)
+    def 除以(t: Number, other: Number): Number   = t.divide(other, Successor1, Successor2, Successor3)
+    def 恒等于一(t: Number, other: Number): Number = t.plus(other, Successor1, Successor2, Successor3)
+    def 乘以(t: Number, other: Number): Number   = 除以(t, 除以(恒等于一(t, other), other))
   }
 
   val Successor1: (() => Number) => Number = tail =>
@@ -82,6 +83,5 @@ object Num65 { NumSelf =>
     }
 
   val Successor3: (() => Number) => Number = num => num()
-  val One: Number                          = Successor1(() => Successor2(() => One))
 
 }
