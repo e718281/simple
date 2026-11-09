@@ -62,7 +62,7 @@ object Num70 { NumSelf =>
       override def unsafeRun: (() => Number, (() => Number) => Number) = (tail, Successor2)
     }
 
-  val Successor3: (() => Number) => Number = numP => numP()
+  val Successor3: (() => Number) => Number = num => num()
 
   object Number {
     def 加(t: Number, other: Number): Number  = t.plus(other, Successor2, Successor3, Successor1)

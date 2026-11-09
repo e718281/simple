@@ -57,6 +57,7 @@ object Num65 { NumSelf =>
         appender3: (() => Number) => Number
       ): Number =
         appender1(() => tail().divide(other, appender1, appender2, appender3))
+
       override def unsafeRun: (() => Number, (() => Number) => Number) = (tail, Successor1)
     }
 
@@ -76,10 +77,11 @@ object Num65 { NumSelf =>
         appender3: (() => Number) => Number
       ): Number =
         appender3(() => other.divide(tail(), appender2, appender1, appender3))
+
       override def unsafeRun: (() => Number, (() => Number) => Number) = (tail, Successor2)
     }
 
-  val Successor3: (() => Number) => Number = numP => numP()
+  val Successor3: (() => Number) => Number = num => num()
   val One: Number                          = Successor1(() => Successor2(() => One))
 
 }
