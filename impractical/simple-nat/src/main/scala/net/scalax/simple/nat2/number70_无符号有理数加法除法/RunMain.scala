@@ -81,8 +81,8 @@ object RunTest1 {
 
   def main(arr: Array[String]): Unit = {
     println("=== start num1 ===")
-    val num1: Number        = build(current1 = 22, current2 = 7)
-    val result1: BigDecimal = BigDecimal(22) / BigDecimal(7)
+    val num1: Number        = build(current1 = 15, current2 = 13)
+    val result1: BigDecimal = BigDecimal(15) / BigDecimal(13)
     count(
       num1,
       except = result1,
@@ -90,8 +90,8 @@ object RunTest1 {
     )
 
     println("=== start num2 ===")
-    val num2: Number        = build(current1 = 13, current2 = 4)
-    val result2: BigDecimal = BigDecimal(13) / BigDecimal(4)
+    val num2: Number        = build(current1 = 17, current2 = 4)
+    val result2: BigDecimal = BigDecimal(17) / BigDecimal(4)
     count(
       num2,
       except = result2,
