@@ -19,33 +19,63 @@ object Num65 { NumSelf =>
 
   // 无符号有理数加法乘法除法
   trait Number {
-    def plus(other: Number, appender1: (() => Number) => Number, appender2: (() => Number) => Number): Number
-    def divide(other: Number, appender1: (() => Number) => Number, appender2: (() => Number) => Number): Number
+    def plus(
+      other: Number,
+      appender1: (() => Number) => Number,
+      appender2: (() => Number) => Number,
+      appender3: (() => Number) => Number
+    ): Number
+    def divide(
+      other: Number,
+      appender1: (() => Number) => Number,
+      appender2: (() => Number) => Number,
+      appender3: (() => Number) => Number
+    ): Number
 
     def unsafeRun: (() => Number, (() => Number) => Number)
   }
 
   object Number {
-    def 加(t: Number, other: Number): Number  = t.plus(other, Successor2, Successor3)
-    def 除以(t: Number, other: Number): Number = t.divide(other, Successor2, Successor1)
+    def 加(t: Number, other: Number): Number  = t.plus(other, Successor2, Successor3, Successor1)
+    def 除以(t: Number, other: Number): Number = t.divide(other, Successor1, Successor2, Successor3)
     def 乘以(t: Number, other: Number): Number = 除以(t, 除以(One, other))
   }
 
   val Successor1: (() => Number) => Number = tail =>
     new Number {
-      override def plus(other: Number, appender1: (() => Number) => Number, appender2: (() => Number) => Number): Number =
-        Successor1(() => tail().plus(other, appender1, appender2))
-      override def divide(other: Number, appender1: (() => Number) => Number, appender2: (() => Number) => Number): Number =
-        appender2(() => tail().divide(other, appender1, appender2))
+      override def plus(
+        other: Number,
+        appender1: (() => Number) => Number,
+        appender2: (() => Number) => Number,
+        appender3: (() => Number) => Number
+      ): Number =
+        appender3(() => tail().plus(other, appender1, appender2, appender3))
+      override def divide(
+        other: Number,
+        appender1: (() => Number) => Number,
+        appender2: (() => Number) => Number,
+        appender3: (() => Number) => Number
+      ): Number =
+        appender1(() => tail().divide(other, appender1, appender2, appender3))
       override def unsafeRun: (() => Number, (() => Number) => Number) = (tail, Successor1)
     }
 
   val Successor2: (() => Number) => Number = tail =>
     new Number {
-      override def plus(other: Number, appender1: (() => Number) => Number, appender2: (() => Number) => Number): Number =
-        appender1(() => other.plus(tail(), appender2, appender1))
-      override def divide(other: Number, appender1: (() => Number) => Number, appender2: (() => Number) => Number): Number =
-        Successor3(() => other.divide(tail(), appender2, appender1))
+      override def plus(
+        other: Number,
+        appender1: (() => Number) => Number,
+        appender2: (() => Number) => Number,
+        appender3: (() => Number) => Number
+      ): Number =
+        appender1(() => other.plus(tail(), appender2, appender1, appender3))
+      override def divide(
+        other: Number,
+        appender1: (() => Number) => Number,
+        appender2: (() => Number) => Number,
+        appender3: (() => Number) => Number
+      ): Number =
+        appender3(() => other.divide(tail(), appender2, appender1, appender3))
       override def unsafeRun: (() => Number, (() => Number) => Number) = (tail, Successor2)
     }
 
