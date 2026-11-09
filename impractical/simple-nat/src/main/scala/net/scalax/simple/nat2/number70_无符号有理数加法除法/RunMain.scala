@@ -46,14 +46,26 @@ object RunTest1 {
       finished
     } else {
       val (nextCount1, numType1) = num1.unsafeRun
-      countImpl(
-        nextCount1(),
-        current1 = if (numType1 == Successor1) current1 + 1 else current1,
-        current2 = if (numType1 == Successor1) current2 else current2 + 1,
-        except = except,
-        wucha = wucha,
-        speed = speed
-      )
+
+      if (numType1 == Successor1) {
+        countImpl(
+          nextCount1(),
+          current1 = current1 + 1,
+          current2 = current2,
+          except = except,
+          wucha = wucha,
+          speed = speed
+        )
+      } else {
+        countImpl(
+          nextCount1(),
+          current1 = current1,
+          current2 = current2 + 1,
+          except = except,
+          wucha = wucha,
+          speed = speed
+        )
+      }
     }
   }
 
@@ -67,7 +79,7 @@ object RunTest1 {
       speed = speed
     )
 
-  def main(arr: Array[String]): Unit = {
+  def main1(arr: Array[String]): Unit = {
     println("=== start num1 ===")
     val num1: Number        = build(current1 = 22, current2 = 7)
     val result1: BigDecimal = BigDecimal(22) / BigDecimal(7)
