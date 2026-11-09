@@ -112,17 +112,17 @@ object RunTest1 {
       num4,
       speed = 1000000,
       except = result4,
-      wucha = BigDecimal(1) / BigDecimal(100)
+      wucha = BigDecimal(1) / BigDecimal(10000)
     )
 
     println("=== start num5 ===")
-    val num5: AddNumber     = AddNumber.乘以(num1, num4)
-    val result5: BigDecimal = result1 * result4
+    val num5: AddNumber     = AddNumber.乘以(num2, num3)
+    val result5: BigDecimal = result2 * result3
     count(
       num5,
       speed = 10000000,
       except = result5,
-      wucha = BigDecimal(1) / BigDecimal(10)
+      wucha = BigDecimal(1) / BigDecimal(10000)
     )
 
     println("=== start num6 ===")
