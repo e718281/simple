@@ -93,7 +93,7 @@ object RunTest1 {
     count(
       num2,
       except = result2,
-      wucha = BigDecimal(1) / BigDecimal(10000)
+      wucha = BigDecimal(1) / BigDecimal(1000000)
     )
 
     println("=== start num3 ===")
@@ -102,7 +102,7 @@ object RunTest1 {
     count(
       num3,
       except = result3,
-      wucha = BigDecimal(1) / BigDecimal(10000)
+      wucha = BigDecimal(1) / BigDecimal(1000000)
     )
 
     println("=== start num4 ===")
@@ -112,7 +112,7 @@ object RunTest1 {
       num4,
       speed = 1000000,
       except = result4,
-      wucha = BigDecimal(1) / BigDecimal(10000)
+      wucha = BigDecimal(1) / BigDecimal(1000000)
     )
 
     println("=== start num5 ===")
@@ -122,7 +122,7 @@ object RunTest1 {
       num5,
       speed = 10000000,
       except = result5,
-      wucha = BigDecimal(1) / BigDecimal(10000)
+      wucha = BigDecimal(1) / BigDecimal(1000000)
     )
 
     println("=== start num6 ===")
@@ -131,7 +131,7 @@ object RunTest1 {
     count(
       num6,
       except = result6,
-      wucha = BigDecimal(1) / BigDecimal(10000)
+      wucha = BigDecimal(1) / BigDecimal(1000000)
     )
 
     println("=== start num7 ===")
@@ -149,7 +149,7 @@ object RunTest1 {
     count(
       num8,
       except = result8,
-      wucha = BigDecimal(1) / BigDecimal(10000)
+      wucha = BigDecimal(1) / BigDecimal(1000000)
     )
 
     println("=== start num9 ===")
@@ -158,7 +158,7 @@ object RunTest1 {
     count(
       num9,
       except = result9,
-      wucha = BigDecimal(1) / BigDecimal(10000)
+      wucha = BigDecimal(1) / BigDecimal(1000000)
     )
   }
 
