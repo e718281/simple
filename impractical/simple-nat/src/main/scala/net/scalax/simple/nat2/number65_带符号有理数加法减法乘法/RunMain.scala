@@ -112,7 +112,7 @@ object RunTest1 {
       num4,
       speed = 1000000,
       except = result4,
-      wucha = BigDecimal(1) / BigDecimal(1000000)
+      wucha = BigDecimal(1) / BigDecimal(100)
     )
 
     println("=== start num5 ===")

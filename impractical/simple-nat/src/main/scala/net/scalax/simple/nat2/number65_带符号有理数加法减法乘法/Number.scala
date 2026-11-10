@@ -39,10 +39,6 @@ object Num65 { NumSelf =>
     def 加(t: Number, other: Number): Number  = t.plus(other, Successor2, Successor3, Successor1)
     def 除以(t: Number, other: Number): Number = t.divide(other, Successor1, Successor2, Successor3)
     def 乘以(t: Number, other: Number): Number = 除以(t, 除以(One, other))
-    val One: Number                          = {
-      val `22/7`: Number = RunTest1.build(22, 7)
-      除以(`22/7`, `22/7`)
-    }
   }
 
   val Successor1: (() => Number) => Number = tail =>
@@ -86,5 +82,7 @@ object Num65 { NumSelf =>
     }
 
   val Successor3: (() => Number) => Number = num => num()
+
+  val One: Number = Successor1(() => Successor2(() => One))
 
 }
