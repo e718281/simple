@@ -63,10 +63,12 @@ object Num70 { NumSelf =>
     }
 
   val Successor3: (() => Number) => Number = num => num()
+  val One: Number                          = Successor1(() => Successor2(() => Successor3(() => One)))
 
   object Number {
     def 加(t: Number, other: Number): Number  = t.plus(other, Successor2, Successor3, Successor1)
     def 除以(t: Number, other: Number): Number = t.divide(other, Successor1, Successor2, Successor3)
+    def 乘以(t: Number, other: Number): Number = 除以(t, 除以(One, other))
 
     def 运算1_1(t: Number, other: Number): Number = t.plus(other, Successor1, Successor2, Successor3)
     def 运算1_2(t: Number, other: Number): Number = t.plus(other, Successor1, Successor3, Successor2)

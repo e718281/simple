@@ -79,7 +79,7 @@ object RunTest1 {
       speed = speed
     )
 
-  def main1(arr: Array[String]): Unit = {
+  def main(arr: Array[String]): Unit = {
     println("=== start num1 ===")
     val num1: Number        = build(current1 = 15, current2 = 13)
     val result1: BigDecimal = BigDecimal(15) / BigDecimal(13)
@@ -117,12 +117,12 @@ object RunTest1 {
     )
 
     println("=== start num5 ===")
-    val num5: Number        = Number.除以(num4, Number.加(num1, num2))
-    val result5: BigDecimal = result4 / (result1 + result2)
+    val num5: Number        = Number.除以(num4, Number.加(num1, Number.乘以(num3, num2)))
+    val result5: BigDecimal = result4 / (result1 + result3 * result2)
     count(
       num5,
       except = result5,
-      wucha = result5 / BigDecimal(100000)
+      wucha = result5 / BigDecimal(10000)
     )
 
     locally {
