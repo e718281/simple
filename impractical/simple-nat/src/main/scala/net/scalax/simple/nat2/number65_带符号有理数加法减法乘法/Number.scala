@@ -83,6 +83,6 @@ object Num65 { NumSelf =>
 
   val Successor3: (() => Number) => Number = num => num()
 
-  val One: Number = Successor1(() => Successor2(() => One))
+  val One: Number = Successor1(() => Successor2(() => Successor3(() => One)))
 
 }
