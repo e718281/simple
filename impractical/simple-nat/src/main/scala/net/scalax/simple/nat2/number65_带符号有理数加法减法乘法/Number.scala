@@ -4,19 +4,6 @@ package number65
 
 object Num65 { NumSelf =>
 
-  case class AddNumber(left: Number, right: Number)
-
-  object AddNumber {
-    def 加(t: AddNumber, other: AddNumber): AddNumber  = AddNumber(Number.加(t.left, other.left), Number.加(t.right, other.right))
-    def 减(t: AddNumber, other: AddNumber): AddNumber  = AddNumber(Number.加(t.left, other.right), Number.加(t.right, other.left))
-    def 乘以(t: AddNumber, other: AddNumber): AddNumber = AddNumber(
-      Number.加(Number.乘以(t.left, other.left), Number.乘以(t.right, other.right)),
-      Number.加(Number.乘以(t.left, other.right), Number.乘以(t.right, other.left))
-    )
-    def 除以正数(t: AddNumber, other: Number): AddNumber = AddNumber(Number.除以(t.left, other), Number.除以(t.right, other))
-    def 除以负数(t: AddNumber, other: Number): AddNumber = AddNumber(Number.除以(t.right, other), Number.除以(t.left, other))
-  }
-
   // 无符号有理数加法乘法除法
   trait Number {
     def plus(
@@ -33,12 +20,6 @@ object Num65 { NumSelf =>
     ): Number
 
     def unsafeRun: (() => Number, (() => Number) => Number)
-  }
-
-  object Number {
-    def 加(t: Number, other: Number): Number  = t.plus(other, Successor2, Successor3, Successor1)
-    def 除以(t: Number, other: Number): Number = t.divide(other, Successor1, Successor2, Successor3)
-    def 乘以(t: Number, other: Number): Number = 除以(t, 除以(One, other))
   }
 
   val Successor1: (() => Number) => Number = tail =>
@@ -84,5 +65,24 @@ object Num65 { NumSelf =>
   val Successor3: (() => Number) => Number = num => num()
 
   val One: Number = Successor1(() => Successor2(() => Successor3(() => One)))
+
+  object Number {
+    def 加(t: Number, other: Number): Number  = t.plus(other, Successor2, Successor3, Successor1)
+    def 除以(t: Number, other: Number): Number = t.divide(other, Successor1, Successor2, Successor3)
+    def 乘以(t: Number, other: Number): Number = 除以(t, 除以(One, other))
+  }
+
+  case class AddNumber(left: Number, right: Number)
+
+  object AddNumber {
+    def 加(t: AddNumber, other: AddNumber): AddNumber  = AddNumber(Number.加(t.left, other.left), Number.加(t.right, other.right))
+    def 减(t: AddNumber, other: AddNumber): AddNumber  = AddNumber(Number.加(t.left, other.right), Number.加(t.right, other.left))
+    def 乘以(t: AddNumber, other: AddNumber): AddNumber = AddNumber(
+      Number.加(Number.乘以(t.left, other.left), Number.乘以(t.right, other.right)),
+      Number.加(Number.乘以(t.left, other.right), Number.乘以(t.right, other.left))
+    )
+    def 除以正数(t: AddNumber, other: Number): AddNumber = AddNumber(Number.除以(t.left, other), Number.除以(t.right, other))
+    def 除以负数(t: AddNumber, other: Number): AddNumber = AddNumber(Number.除以(t.right, other), Number.除以(t.left, other))
+  }
 
 }

@@ -79,7 +79,7 @@ object RunTest1 {
       speed = speed
     )
 
-  def main(arr: Array[String]): Unit = {
+  def main1(arr: Array[String]): Unit = {
     println("=== start num1 ===")
     val num1: Number        = build(current1 = 15, current2 = 13)
     val result1: BigDecimal = BigDecimal(15) / BigDecimal(13)
