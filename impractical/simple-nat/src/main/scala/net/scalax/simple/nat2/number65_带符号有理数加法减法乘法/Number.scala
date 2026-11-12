@@ -64,7 +64,7 @@ object Num65 { NumSelf =>
 
   val Successor3: (() => Number) => Number = num => num()
 
-  val One: Number = Successor1(() => Successor2(() => Successor3(() => One)))
+  val One: Number = Successor1(() => Successor2(() => One))
 
   object Number {
     def 加(t: Number, other: Number): Number  = t.plus(other, Successor2, Successor3, Successor1)
