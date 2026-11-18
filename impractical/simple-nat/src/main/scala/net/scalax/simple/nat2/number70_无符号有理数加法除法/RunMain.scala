@@ -116,8 +116,17 @@ object RunTest1 {
       wucha = result4 / BigDecimal(100000)
     )
 
+    println("=== start num5_1 ===")
+    val num5_1: Number        = Number.倒数(num2)
+    val result5_1: BigDecimal = BigDecimal(1) / result2
+    count(
+      num5_1,
+      except = result5_1,
+      wucha = result5_1 / BigDecimal(10000)
+    )
+
     println("=== start num5 ===")
-    val num5: Number        = Number.除以(num4, Number.加(num1, Number.乘以(num3, num2)))
+    val num5: Number        = Number.除以(num4, Number.加(num1, Number.除以(num3, Number.倒数(num2))))
     val result5: BigDecimal = result4 / (result1 + result3 * result2)
     count(
       num5,

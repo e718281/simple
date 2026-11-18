@@ -18,6 +18,7 @@ object Num70 { NumSelf =>
       appender2: (() => Number) => Number,
       appender3: (() => Number) => Number
     ): Number
+    def reciprocal(appender1: (() => Number) => Number, appender2: (() => Number) => Number): Number
 
     def unsafeRun: (() => Number, (() => Number) => Number)
   }
@@ -38,6 +39,8 @@ object Num70 { NumSelf =>
         appender3: (() => Number) => Number
       ): Number =
         appender1(() => tail().divide(other, appender1, appender2, appender3))
+      override def reciprocal(appender1: (() => Number) => Number, appender2: (() => Number) => Number): Number =
+        appender2(() => tail().reciprocal(appender1, appender2))
 
       override def unsafeRun: (() => Number, (() => Number) => Number) = (tail, Successor1)
     }
@@ -58,18 +61,18 @@ object Num70 { NumSelf =>
         appender3: (() => Number) => Number
       ): Number =
         appender3(() => other.divide(tail(), appender2, appender1, appender3))
+      override def reciprocal(appender1: (() => Number) => Number, appender2: (() => Number) => Number): Number =
+        appender1(() => tail().reciprocal(appender1, appender2))
 
       override def unsafeRun: (() => Number, (() => Number) => Number) = (tail, Successor2)
     }
 
   val Successor3: (() => Number) => Number = num => num()
 
-  val One: Number = Successor1(() => Successor2(() => One))
-
   object Number {
     def 加(t: Number, other: Number): Number  = t.plus(other, Successor2, Successor3, Successor1)
     def 除以(t: Number, other: Number): Number = t.divide(other, Successor1, Successor2, Successor3)
-    def 乘以(t: Number, other: Number): Number = 除以(t, 除以(One, other))
+    def 倒数(t: Number): Number                = t.reciprocal(Successor1, Successor2)
 
     def 运算1_1(t: Number, other: Number): Number = t.plus(other, Successor1, Successor2, Successor3)
     def 运算1_2(t: Number, other: Number): Number = t.plus(other, Successor1, Successor3, Successor2)
