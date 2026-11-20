@@ -18,7 +18,6 @@ object Num65 { NumSelf =>
       appender2: (() => Number) => Number,
       appender3: (() => Number) => Number
     ): Number
-    def reciprocal(appender1: (() => Number) => Number, appender2: (() => Number) => Number): Number
 
     def unsafeRun: (() => Number, (() => Number) => Number)
   }
@@ -39,8 +38,6 @@ object Num65 { NumSelf =>
         appender3: (() => Number) => Number
       ): Number =
         appender1(() => tail().divide(other, appender1, appender2, appender3))
-      override def reciprocal(appender1: (() => Number) => Number, appender2: (() => Number) => Number): Number =
-        appender2(() => tail().reciprocal(appender1, appender2))
 
       override def unsafeRun: (() => Number, (() => Number) => Number) = (tail, Successor1)
     }
@@ -61,8 +58,6 @@ object Num65 { NumSelf =>
         appender3: (() => Number) => Number
       ): Number =
         appender3(() => other.divide(tail(), appender2, appender1, appender3))
-      override def reciprocal(appender1: (() => Number) => Number, appender2: (() => Number) => Number): Number =
-        appender1(() => tail().reciprocal(appender1, appender2))
 
       override def unsafeRun: (() => Number, (() => Number) => Number) = (tail, Successor2)
     }
@@ -72,7 +67,7 @@ object Num65 { NumSelf =>
   object Number {
     def 加(t: Number, other: Number): Number  = t.plus(other, Successor2, Successor3, Successor1)
     def 除以(t: Number, other: Number): Number = t.divide(other, Successor1, Successor2, Successor3)
-    def 倒数(t: Number): Number                = t.reciprocal(Successor1, Successor2)
+    lazy val One: Number                     = Successor1(() => Successor2(() => One))
   }
 
   case class AddNumber(left: Number, right: Number)
@@ -81,8 +76,8 @@ object Num65 { NumSelf =>
     def 加(t: AddNumber, other: AddNumber): AddNumber  = AddNumber(Number.加(t.left, other.left), Number.加(t.right, other.right))
     def 减(t: AddNumber, other: AddNumber): AddNumber  = AddNumber(Number.加(t.left, other.right), Number.加(t.right, other.left))
     def 乘以(t: AddNumber, other: AddNumber): AddNumber = AddNumber(
-      Number.加(Number.除以(t.left, Number.倒数(other.left)), Number.除以(t.right, Number.倒数(other.right))),
-      Number.加(Number.除以(t.left, Number.倒数(other.right)), Number.除以(t.right, Number.倒数(other.left)))
+      Number.加(Number.除以(t.left, Number.除以(Number.One, other.left)), Number.除以(t.right, Number.除以(Number.One, other.right))),
+      Number.加(Number.除以(t.left, Number.除以(Number.One, other.right)), Number.除以(t.right, Number.除以(Number.One, other.left)))
     )
     def 除以正数(t: AddNumber, other: Number): AddNumber = AddNumber(Number.除以(t.left, other), Number.除以(t.right, other))
     def 除以负数(t: AddNumber, other: Number): AddNumber = AddNumber(Number.除以(t.right, other), Number.除以(t.left, other))

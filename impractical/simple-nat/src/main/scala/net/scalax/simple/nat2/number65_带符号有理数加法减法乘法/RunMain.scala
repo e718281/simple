@@ -77,7 +77,7 @@ object RunTest1 {
       speed = speed
     )
 
-  def main(arr: Array[String]): Unit = {
+  def main1(arr: Array[String]): Unit = {
     println("=== start num1 ===")
     val num1: AddNumber     = AddNumber(build(current1 = 2, current2 = 56), build(current1 = 78, current2 = 9))
     val result1: BigDecimal = BigDecimal(2) / BigDecimal(56) - BigDecimal(78) / BigDecimal(9)
@@ -139,6 +139,7 @@ object RunTest1 {
     val result7: BigDecimal = (result2 * (result3 - result1) + result2) * result6
     count(
       num7,
+      speed = 10000000,
       except = result7,
       wucha = BigDecimal(1) / BigDecimal(10000)
     )

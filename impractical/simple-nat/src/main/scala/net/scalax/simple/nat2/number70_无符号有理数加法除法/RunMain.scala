@@ -117,7 +117,7 @@ object RunTest1 {
     )
 
     println("=== start num5_1 ===")
-    val num5_1: Number        = Number.倒数(num2)
+    val num5_1: Number        = Number.除以(Number.One, num2)
     val result5_1: BigDecimal = BigDecimal(1) / result2
     count(
       num5_1,
@@ -126,7 +126,7 @@ object RunTest1 {
     )
 
     println("=== start num5 ===")
-    val num5: Number        = Number.除以(num4, Number.加(num1, Number.除以(num3, Number.倒数(num2))))
+    val num5: Number        = Number.除以(num4, Number.加(num1, Number.除以(num3, Number.除以(Number.One, num2))))
     val result5: BigDecimal = result4 / (result1 + result3 * result2)
     count(
       num5,
